@@ -4,9 +4,11 @@ from helper import generate
 class Grid:
     def __init__(self, x, y):
         self.grid = []
+        tmp = []
         for i in range(y):
             for k in range(x):
-                self.grid[i].append(Tile())
+                tmp.append(Tile())
+            self.grid.append(tmp)
 
     def print_grid(self) -> None:
         view = []
