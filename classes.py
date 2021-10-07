@@ -1,4 +1,4 @@
-from helper import generate
+from helper import generate2
 
 
 class Grid:
@@ -8,19 +8,20 @@ class Grid:
         for i in range(y):
             for k in range(x):
                 tmp.append(Tile())
-            self.grid.append(tmp)
+                self.grid.append(tmp)
 
     def print_grid(self) -> None:
         view = []
         for i in range(len(self.grid[0])):
             for k in range(len(self.grid)):
                 view.append(self.grid[i][k].get())
+        print(len(view))
         return print(view)
 
 
 class Tile:
     def __init__(self):
-        self.tile_type = generate(['void', 'money', 'loot', 'fight'], [10, 10, 30, 50])
+        self.tile_type = generate2(['void', 'money', 'loot', 'fight'], [10, 10, 30, 50])
 
     def get(self):
         print(self.tile_type)
