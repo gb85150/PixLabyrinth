@@ -30,6 +30,7 @@ def generate2(choice: list, weight: list) -> str:
 
 
 def fight():
+    # TODO: Make fight function
     pass
 
 
@@ -40,6 +41,8 @@ def move(direction: str, coord: list) -> list:
     :param coord: the current coordinates of the player
     :return: the new coordinates
     """
+    # TODO: Update coordinates directly to the instance
+    # TODO: Check for 'out of map' issues
     if direction == 'south':
         coord[0] += 0
         coord[1] += -1
