@@ -2,6 +2,42 @@ from random import randint
 from helper import generate2
 
 
+class Game:
+    """Main Class, can be used for saving game slots"""
+
+    def __init__(self) -> None:
+        """
+        The first module.
+        It ask the player for the future settings and prepare the game.
+        :return None:
+        """
+        # Asking the player for parameters
+        x = int(input("""Quelle est la largeur de la grille de jeu ?
+Largeur :
+"""))
+        y = int(input(f"""
+Quelle est la hauteur de la grille de jeu ? Pour Rappel, sa largeur est de {x} case de largeur.
+Hauteur :
+"""))
+        grid_size = (x, y)
+        difficulty = str(input("""
+Difficulté (easy, medium, hard) :
+"""))
+        # Setting up the game (NB: this part can be moved to another function if we make globals
+        grid1 = Grid(grid_size[0], grid_size[1])
+
+        if difficulty == 'easy':
+            self.player1 = Character(health=25, attack=5, luck=2, inv=[], xy=[0, 0])
+        elif difficulty == 'medium':
+            self.player1 = Character(health=20, attack=3, luck=1, inv=[], xy=[0, 0])
+        elif difficulty == 'hard':
+            self.player1 = Character(health=15, attack=2, luck=0, inv=[], xy=[0, 0])
+        else:
+            raise TypeError("Une difficulté inconnue à été spécifiée")
+
+        grid1.print_grid()
+
+
 class Grid:
     def __init__(self, x, y):
         self.grid = []
@@ -20,8 +56,9 @@ class Grid:
                 line.append(self.grid[i][k].get())
             view.append(line)
         print(len(view))
-        print(view[i] for i in range(len(view)))
-        return print(view)
+        for i in range(len(view)):
+            print(f"{view[i]}\r")
+        return None
 
 
 class Tile:
