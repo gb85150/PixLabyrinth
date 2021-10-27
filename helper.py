@@ -59,3 +59,9 @@ def move(direction: str, coord: list) -> list:
         coord[0] += -1
         coord[1] += 0
         return coord
+
+
+def print_grid(grid) -> None:
+    for i in range(len(grid)):
+        print(("┌───┐\n│   │\n└───┘\n" * len(grid[i])), sep=' ')
+        return None

@@ -24,7 +24,7 @@ Hauteur :
 Difficulté (easy, medium, hard) :
 """))
         # Setting up the game (NB: this part can be moved to another function if we make globals
-        grid1 = Grid(grid_size[0], grid_size[1])
+        self.grid = Grid(grid_size[0], grid_size[1])
 
         if difficulty == 'easy':
             self.player1 = Character(health=25, attack=5, luck=2, inv=[], xy=[0, 0])
@@ -35,7 +35,7 @@ Difficulté (easy, medium, hard) :
         else:
             raise TypeError("Une difficulté inconnue à été spécifiée")
 
-        grid1.print_grid()
+        self.grid.print_dev_grid()
 
 
 class Grid:
@@ -48,7 +48,7 @@ class Grid:
                 line.append(Tile())
             self.grid.append(line)
 
-    def print_grid(self) -> None:
+    def print_dev_grid(self) -> None:
         view = []
         for i in range(len(self.grid)):
             line = []
