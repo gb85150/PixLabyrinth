@@ -22,7 +22,7 @@ Hauteur :
         grid_size = (x, y)
         difficulty = str(input("""
 Difficulté (easy, medium, hard) :
-"""))
+""")).lower()
         # Setting up the game (NB: this part can be moved to another function if we make globals
         self.grid = Grid(grid_size[0], grid_size[1])
 
@@ -35,18 +35,51 @@ Difficulté (easy, medium, hard) :
         else:
             raise TypeError("Une difficulté inconnue à été spécifiée")
 
+        print('Generating... Please wait')
         self.grid.print_dev_grid()
+
+    def ask_next_move(self) -> None:
+        print(f"""
+=========================================================================================
+Vous vous situez en {self.player1.coordinates}.
+La sortie se situe dans le coin inférieur droit en {self.grid.issue_pos}.
+Où désirez-vous vous rendre ?
+""")
+        direction = input('Direction ? (south/north/east/west) : ').lower()
+        self.player1.move(direction)
+
+    def new_tile_event(self):
+        tile_type = self.grid.grid[self.player1.coordinates[1]][self.player1.coordinates[0]]
+
+        if tile_type == 'fight':
+            raise NotImplementedError('Not implemented yet, sorry for the inconvenience')
+
+        elif tile_type == 'loot':
+            raise NotImplementedError('Not implemented yet, sorry for the inconvenience')
+
+        elif tile_type == 'money':
+            revenue = self.player1.earn_money()
+            print(f"""
+=========================================================================================
+Félicitations, vous avez trouvé de l'argent ({revenue}, votre argent s'élève à présent à {self.player1.balance}.
+""")
+
+        else:
+            print("""
+=========================================================================================
+La salle est vide ! Vous pouvez vous re-déplacer.
+""")
 
 
 class Grid:
     def __init__(self, x, y):
         self.grid = []
-        # TODO: Fix generation (Loop executed 2 times)
         for i in range(y):
             line = []
             for k in range(x):
                 line.append(Tile())
             self.grid.append(line)
+        self.issue_pos = (len(self.grid[0]) - 1, len(self.grid[len(self.grid) - 1]))
 
     def print_dev_grid(self) -> None:
         view = []
@@ -104,7 +137,9 @@ class Character:
     :param inv: inventory of the character, looted on death
     :param xy: position of the character
     """
+
     def __init__(self, health: int, attack: int, luck: int, inv: list, xy: list) -> None:
+        self.balance = 0
         self.health = health
         self.attack = attack
         self.luck = luck
@@ -114,3 +149,35 @@ class Character:
     def heal(self):
         # TODO: Healing
         pass
+
+    def move(self, direction: str):
+        """
+        Move the player in the specified direction
+        :param direction: str, can be either : south, north, east or west
+        :param self: self, used for updating the position
+        """
+        # TODO: Check for 'out of map' issues
+
+        if direction == 'south':
+            self.coordinates[0] += 0
+            self.coordinates[1] += -1
+
+        elif direction == 'north':
+            self.coordinates[0] += 0
+            self.coordinates[1] += 1
+
+        elif direction == 'east':
+            self.coordinates[0] += 1
+            self.coordinates[1] += 0
+
+        else:
+            self.coordinates[0] += -1
+            self.coordinates[1] += 0
+
+    def earn_money(self) -> float:
+        loot_table = [2, 5, 10, 25]
+        probability_table = [10, 20, 15, 5]
+        base_earnings = int(generate2(choice=loot_table, weight=probability_table))
+        total_earnings = base_earnings + base_earnings * (self.luck / 10)
+        self.balance += total_earnings
+        return total_earnings
