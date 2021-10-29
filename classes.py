@@ -1,4 +1,3 @@
-from random import randint
 from helper import generate2
 
 
@@ -49,7 +48,7 @@ Où désirez-vous vous rendre ?
         self.player1.move(direction)
 
     def new_tile_event(self):
-        tile_type = self.grid.grid[self.player1.coordinates[1]][self.player1.coordinates[0]]
+        tile_type = self.grid.grid[self.player1.coordinates[1] - 1][self.player1.coordinates[0] - 1].tile_type
 
         if tile_type == 'fight':
             raise NotImplementedError('Not implemented yet, sorry for the inconvenience')
@@ -79,7 +78,7 @@ class Grid:
             for k in range(x):
                 line.append(Tile())
             self.grid.append(line)
-        self.issue_pos = (len(self.grid[0]) - 1, len(self.grid[len(self.grid) - 1]))
+        self.issue_pos = (len(self.grid[0]), len(self.grid[len(self.grid) - 1]))
 
     def print_dev_grid(self) -> None:
         view = []
@@ -99,16 +98,25 @@ class Tile:
         self.tile_type = generate2(['void', 'money', 'loot', 'fight'], [10, 10, 30, 50])
         # On génère la map théorique...
         # Génération des instances des ennemis
+
         if self.tile_type == 'void':
             # Do nothing
             pass
+
         elif self.tile_type == 'fight':
             self.entity = Character(
-                health=10, attack=1, luck=int(generate2([1, 2, 3], [60, 40, 20])), inv=[], xy=[])
+                health=10,
+                attack=1,
+                luck=int(generate2([1, 2, 3], [60, 40, 20])),
+                inv=[],
+                xy=[]
+            )
             # TODO: Add loot generation
+
         elif self.tile_type == 'money':
-            self.value = randint(2, 20)
-            # TODO: Set Money Management
+            # The money is now managed in Character class
+            pass
+
         elif self.tile_type == 'loot':
             # TODO: Generate loot (See line 34)
             pass
