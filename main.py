@@ -1,5 +1,5 @@
 from classes import *
-from helper import print_grid
+# from helper import print_grid
 
 "⚔💰🌀👑"
 """
@@ -16,4 +16,3 @@ if __name__ == '__main__':
     while game1.player1.health > 0 or game1.player1.coordinates != game1.grid.issue_pos:
         game1.ask_next_move()
         game1.new_tile_event()
-

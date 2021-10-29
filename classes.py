@@ -1,4 +1,4 @@
-from helper import generate2
+from helper import generate2, fight
 
 
 class Game:
@@ -51,7 +51,7 @@ Où désirez-vous vous rendre ?
         tile_type = self.grid.grid[self.player1.coordinates[1] - 1][self.player1.coordinates[0] - 1].tile_type
 
         if tile_type == 'fight':
-            raise NotImplementedError('Not implemented yet, sorry for the inconvenience')
+            fight()
 
         elif tile_type == 'loot':
             raise NotImplementedError('Not implemented yet, sorry for the inconvenience')
@@ -189,3 +189,20 @@ class Character:
         total_earnings = base_earnings + base_earnings * (self.luck / 10)
         self.balance += total_earnings
         return total_earnings
+
+    def attacks(self, target) -> int:
+
+        if bool(generate2(choice=[True, False], weight=[(1*target.luck), 1])):  # True if the enemy avoid the attack
+            return 0
+
+        else:
+
+            if generate2(choice=[True, False], weight=[(1*self.luck), 4]):  # Critical Hit
+
+                target.health -= self.attack * 2
+                return self.attack * 2
+
+            else:  # Regular hit
+
+                target.health -= self.attack
+                return self.attack
