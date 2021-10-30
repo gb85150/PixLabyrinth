@@ -1,4 +1,5 @@
-from helper import generate2, fight
+import main
+from helper import generate2
 
 
 class Game:
@@ -51,7 +52,7 @@ Où désirez-vous vous rendre ?
         tile_type = self.grid.grid[self.player1.coordinates[1] - 1][self.player1.coordinates[0] - 1].tile_type
 
         if tile_type == 'fight':
-            fight()
+            main.fight()
 
         elif tile_type == 'loot':
             raise NotImplementedError('Not implemented yet, sorry for the inconvenience')
