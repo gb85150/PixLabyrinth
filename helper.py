@@ -90,7 +90,7 @@ Vous êtes à l'abri, voulez-vous vous soigner (Y/N)?
                     g.player1.attack += g.player1.inv[i].attack
 
 
-# wondering about moving this to Grid class ?
+# wondering about moving this to Grid class ? Not in this branch
 def print_grid(grid) -> None:
     for i in range(len(grid)):
         print(("┌───┐\n│   │\n└───┘\n" * len(grid[i])), sep=' ')
