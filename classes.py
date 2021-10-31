@@ -145,9 +145,10 @@ class Character:
     :param luck: critical damage probability
     :param inv: inventory of the character, looted on death
     :param xy: position of the character
+    :param balance: Current amount of money
     """
 
-    def __init__(self, health: int, attack: int, luck: int, inv: list, xy: list) -> None:
+    def __init__(self, health: int, attack: int, luck: int, inv: list, xy: list, balance: float = 0) -> None:
         self.balance = 0
         self.health = health
         self.attack = attack
