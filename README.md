@@ -1,4 +1,3 @@
-[IMG (2021_11_01 18_50_12 UTC).pdf](https://github.com/gb85150/PixLabyrinth/files/7455852/IMG.2021_11_01.18_50_12.UTC.pdf)
 # PixLabyrinth
 A role based labyrinth
 --
